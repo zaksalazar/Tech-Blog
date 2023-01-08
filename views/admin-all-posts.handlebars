@@ -1,3 +1,16 @@
 
-{{!-- TODO - write the template to show all the user's posts on the /dashboard route --}}
+{{!-- TODO - write the template to show all the user's posts on the /dashboard route 
+add admin single post hb page that comments can be left on--}}
+
 <h1>This is the dashboard main page that should display all of a users posts</h1>
+<h2> You made it HERE</h2>
+{{#each posts as |post|}}
+<div> 
+  <h2> 
+    {{post.title}}
+  </h2>
+  <p>
+    {{post.body}}
+  </p>
+</div>
+{{/each}}
