@@ -12,15 +12,17 @@ const withAuth = require("../utils/auth");
 router.get("/", withAuth, async (req, res) => {
   // TODO - retrieve all posts from the database for the logged in user
 try {
-  const postData = await Post.findAll({
-    where: {
-      userId:req.session.userId},
-      include: { 
+  const userPost = await Post.findAll({
+    where: { userId:req.session.userId },
+    order: [["createdAt", "DESC"]], 
+    include: [
+      { 
         model: User, 
         attributes: ['username']
       }
+    ],
   }); 
-  const posts = postData.map((post) => post.get({plain:true}))
+  const posts = userPost.map((post) => post.get({plain:true}))
   // render the dashboard template with the posts retrieved from the database
   //default layout is set to main.handlebars, layout need to be changed to dashboard to use dashboard.handlebars
   res.render("admin-all-posts", { layout: "dashboard", posts });
@@ -33,19 +35,19 @@ router.get('/create', withAuth, async (req, res) => {
   res.render('admin-create-post', { layout: "dashboard",});
 
 });
+router.post('/create', withAuth, async (req, res) => {
+  try{
+  await Post.create({
+    title: req.body.title,
+    body: req.body.body,
+    userId: req.session.userId
+  })
+  res.redirect('/dashboard');
+}catch(err){
+  res.status(500).json(err);
+}
+})
   
-  router.get("/create", withAuth, async(req,res) =>{
-    try {
-      await Post.create({ 
-        title: req.body.title,
-        body: req.body.body,
-        userId: req.session.userId
-      })
-      res.redirect('/dashboard'); 
-    } catch(err){
-      res.status(500).json(err); 
-    }
-  }); 
 // TODO - create logic for the GET route for /new that renders the new post page
 // It should display a form for creating a new post
 

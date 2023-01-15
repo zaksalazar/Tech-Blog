@@ -1,24 +1,8 @@
 
 {{!-- TODO - write the template to show all the user's posts on the /dashboard route 
 add admin single post hb page that comments can be left on--}}
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Tech Blog</title>
-    <link rel="stylesheet" href="/Tech-Blog/css/style.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  </head>
-<body>
-<h2> Tech Blog </h2>
-{{#each posts as |post|}}
-<div class="card">
-  <h5 class="card-header">{{post.title}}</h5>
-  <div class="card-body">
-    <p class="card-text">{{post.body}}</p>
-    <a href="#" class="btn btn-primary p-3 mb-2 bg-secondary text-white">Leave a Comment</a>
-  </div>
-</div>
+<a href ="/dashboard/create">Create Post</a>
+<h2>My Posts</h2>
+{{#each posts }}
+{{> posts this }}
 {{/each}}
-</body>
-</html>

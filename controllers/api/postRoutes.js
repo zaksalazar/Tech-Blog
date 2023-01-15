@@ -5,15 +5,18 @@ const withAuth = require('../../utils/auth');
 
 // TODO - create a POST route for creating a new post
 // This should be a protected route, so you'll need to use the withAuth middleware
-router.post('/', withAuth, async (req, res) => {
+router.post('/create', withAuth, async (req, res) => {
   const body = req.body
   try {
-    const post = await Post.create({ body, userid: req.session.userid }); 
-    console.log ('My post' , post)
-    res.json(post); 
+    const post = await Post.create({ 
+      title: req.body.title,
+      body: req.body.body,  
+      userid: req.session.userid, 
+    }); 
+    res.status(200).json({ message: "Posted"})
   } 
   catch (err) {
-    res.status(400).json(err); 
+    res.status(500).json(err); 
   }
 }); 
 
