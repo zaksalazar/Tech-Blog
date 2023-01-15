@@ -22,7 +22,7 @@ router.post('/', withAuth, async (req, res) => {
 // This should be a protected route, so you'll need to use the withAuth middleware
 router.put('/:id', withAuth, async (req, res) => {
   try {
-    const updatePost = await Post.update({ body: req.body,}
+    const updatePost = await Post.update({ body: req.body,},
       {
       where: {
         id: req.params.id
