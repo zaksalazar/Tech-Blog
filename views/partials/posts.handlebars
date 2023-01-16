@@ -1,5 +1,5 @@
 <style>
-  .post {
+    .post {
     border: 1px solid black; 
     padding: 10px;
     margin: 10px;
@@ -8,12 +8,33 @@
   .post  h2 {
     color: olivedrab; 
   }
-</style>
+</style> 
 
 
 <div class="post">
- <h2>{{title}}</h2>
+ <h2><a href ="/dashboard/:id">{{title}}</a></h2>
  <p>{{body}}</p>
  <p>Posted by :<strong>{{user.username}}</strong></p>
  <p>Posted at :{{format_date createdAt}}</p>
 </div>
+
+<script> 
+  document.querySelector('.post').addEventListener("submit", async (event) => {
+    event.preventDefault(); 
+    const response = await fetch('/dashboard/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: document.querySelector('#title').value,
+        body: document.querySelector('#body').value
+      })
+    })
+    if (response.ok) {
+    document.location.replace('/dashboard');
+  } else {
+    alert('Failed to post');
+  }
+  }) 
+</script>

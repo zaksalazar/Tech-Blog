@@ -1,0 +1,28 @@
+<div class="post">
+ <h2>{{title}}</h2>
+ <p>{{body}}</p>
+ <p>Posted by :<strong>{{user.username}}</strong></p>
+ <p>Posted at :{{format_date createdAt}}</p>
+ <button id = "edit-post" type="submit" id="submit">Edit Post</button>
+</div>
+
+<script> 
+  document.querySelector('#edit-post').addEventListener("submit", async (event) => {
+    event.preventDefault(); 
+    const response = await fetch('/:id', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: document.querySelector('#title').value,
+        body: document.querySelector('#body').value
+      })
+    })
+    if (response.ok) {
+    document.location.replace('/dashboard');
+  } else {
+    alert('Failed to Update');
+  }
+  }) 
+</script>
