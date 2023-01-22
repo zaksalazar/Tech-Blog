@@ -1,4 +1,3 @@
-
 const router = require('express').Router();
 const { User } = require('../../models');
 //User routes are completed for you so you don't have to deal with setting up authentication
@@ -67,7 +66,6 @@ router.post('/logout', (req, res) => {
     });
   } else {
     res.status(404).end();
-    console.log(err); 
   }
 });
 
