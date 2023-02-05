@@ -2,8 +2,23 @@
 {{!-- TODO - write the template to show all the user's posts on the /dashboard route 
 add admin single post hb page that comments can be left on--}}
 <a href ="/dashboard/create">Create Post</a>
+<div class="header">
 <h2>My Posts</h2>
+</div>
 {{#each posts }}
 {{> posts this }}
 
 {{/each}}
+
+<style> 
+  h2 {
+    background-color: rgb(80, 38, 38);
+    color:  #c0cfcf;
+}
+  body {
+    background-color: #c0cfcf;
+    color: rgb(80, 38, 38); 
+}
+
+
+</style>
