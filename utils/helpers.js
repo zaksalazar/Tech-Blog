@@ -1,8 +1,10 @@
 
 module.exports = {
     // Helper function to format date 
-    format_date: date => {
-      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-    }
+format_date: date => {
+  console.log(date);
+  var newdate = new Date(date)
+  return `${newdate.getMonth() + 1}/${newdate.getDate()}/${newdate.getFullYear()}`;
+},
     //add additional custom helpers here if needed
   };
