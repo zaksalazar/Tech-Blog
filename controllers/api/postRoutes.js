@@ -40,33 +40,36 @@ router.put('/:id', withAuth, async (req, res) => {
       } catch (err) {
         res.status(500).json(err);
       }
-
-      router.get("/edit/:id", withAuth, async (req, res) => {
-        try {
-          const userPost = await Post.update({
-            where: {
-              id: req.params.id,
-            },
-            where: {
-              body: req.body.body,
-            },
-          });
-      
-          if (userPost) {
-            const post = userPost.get({ plain: true });
-            console.log(post);
-            res.render("singlepost", {
-              layout: "dashboard",
-              post,
-            });
-          } else {
-            res.status(404).end();
-          }
-        } catch (err) {
-          res.redirect("login");
-        }
-      });
   }); 
+//this route should render your single-post handlebars
+  router.get("/:id", withAuth, async (req, res) => {
+    try {
+      const singlePost = await Post.findOne({
+        where: { id: req.params.id },
+        attributes: ["id", "body", "title", "createdAt"],
+        include: [
+          {
+            model: User,
+            attributes: ["username"],
+          },
+          {
+            model: Comment,
+            order: [["createdAt", "DESC"]],
+            attributes: ["body"],
+          },
+        ],
+      });
+      const post = singlePost;
+      res.render("single-post", {
+        posts: post,
+        id: req.params.id,
+        body: req.body,
+      });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  });
+  
   
 
 

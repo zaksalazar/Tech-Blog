@@ -59,31 +59,30 @@ router.get('/new', withAuth, async (req, res) => {
 // It should display a form for editing an existing post
 
 
-router.get("/edit/:id", withAuth, async (req, res) => {
-  try {
-    const userPost = await Post.update({
-      where: {
-        id: req.params.id,
-      },
-      where: {
-        body: req.body.body,
-      },
-    });
+// router.get("/edit/:id", withAuth, async (req, res) => {
+//   try {
+//     const userPost = await Post.update({
+//       where: {
+//         id: req.params.id,
+//       },
+//       where: {
+//         body: req.body.body,
+//       },
+//     });
 
-    if (userPost) {
-      const post = userPost.get({ plain: true });
-      console.log(post);
-      res.render("editpost", {
-        layout: "dashboard",
-        post,
-      });
-    } else {
-      res.status(404).end();
-    }
-  } catch (err) {
-    res.redirect("login");
-  }
-});
+//     if (userPost) {
+//       const post = userPost.get({ plain: true });
+//       console.log(post);
+//       res.render("singlepost", {
+//         post,
+//       });
+//     } else {
+//       res.status(404).end();
+//     }
+//   } catch (err) {
+//     res.redirect("login");
+//   }
+// });
 
 module.exports = router;
 
