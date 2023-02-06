@@ -57,7 +57,7 @@ router.get('/new', withAuth, async (req, res) => {
 
 // TODO - create logic for the GET route for /edit/:id that renders the edit post page
 // It should display a form for editing an existing post
-router.get('/edit/:id', withAuth, async(req,res) => {
+router.get('dashboard/:id', withAuth, async(req,res) => {
   try {
     const userPost = await Post.findOne({
       where: 
