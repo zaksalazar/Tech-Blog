@@ -1,8 +1,14 @@
 
 {{!-- TODO - write the template to show all posts on the / route --}}
-<a href ="/dashboard/create">Create Post</a>
+<a id= 'createPost' href ="/dashboard/create">Create Post</a>
 <h1>My Posts</h1> 
 {{#each posts }}
 {{>posts this }}
 {{/each}}
 
+<style> 
+#createPost {
+    color: rgb(80, 38, 38);
+    font-size: large;
+}
+</style>

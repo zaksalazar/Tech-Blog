@@ -40,6 +40,32 @@ router.put('/:id', withAuth, async (req, res) => {
       } catch (err) {
         res.status(500).json(err);
       }
+
+      router.get("/edit/:id", withAuth, async (req, res) => {
+        try {
+          const userPost = await Post.update({
+            where: {
+              id: req.params.id,
+            },
+            where: {
+              body: req.body.body,
+            },
+          });
+      
+          if (userPost) {
+            const post = userPost.get({ plain: true });
+            console.log(post);
+            res.render("singlepost", {
+              layout: "dashboard",
+              post,
+            });
+          } else {
+            res.status(404).end();
+          }
+        } catch (err) {
+          res.redirect("login");
+        }
+      });
   }); 
   
 
