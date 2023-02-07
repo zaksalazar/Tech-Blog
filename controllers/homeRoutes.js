@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
       posts,
     });
   } catch (err) {
-    console.log(err); 
+    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -30,25 +30,32 @@ router.get("/", async (req, res) => {
 // this page can be viewed without logging in
 router.get("/post/:id", async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id, {
-      attributes: ["title", "body"],
+    const singlePost = await Post.findOne({
+      where: { id: req.params.id },
+      attributes: ["id", "body", "title", "createdAt"],
       include: [
-        User,
+        {
+          model: User,
+          attributes: ["username"],
+        },
         {
           model: Comment,
-          include: [User],
+          order: [["createdAt", "DESC"]],
+          attributes: ["body"],
         },
       ],
     });
-    const post = postData.get({ plain: true });
+    const post = singlePost.get({ plain: true });
+    console.log(post, "SINGLE POST");
     res.render("single-post", {
-      post,
+      posts: post,
+      id: req.params.id,
+      body: req.body,
     });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).send(err);
   }
 });
-
 // This route renders the login page, which has been completed for you
 router.get("/login", (req, res) => {
   //if users has an existing valid session, they will be redirected to the homepage

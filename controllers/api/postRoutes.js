@@ -59,6 +59,7 @@ router.put('/:id', withAuth, async (req, res) => {
           },
         ],
       });
+      console.log(singlePost, 'SINGLE POST')
       const post = singlePost;
       res.render("single-post", {
         posts: post,
